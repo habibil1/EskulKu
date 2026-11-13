@@ -46,7 +46,7 @@ export const ekskul: Ekskul[] = [
     kategori: "Olahraga",
     hari: "Rabu",
     sesi: 1,
-    kuota: 20,
+    kuota: 0,
     pembina: "Pak Reza",
   },
   {

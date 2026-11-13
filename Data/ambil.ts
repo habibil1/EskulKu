@@ -1,4 +1,4 @@
-import { ekskul, pendaftar } from "@/Data/ekskul";
+import { ekskul, pendaftar } from "@/data/ekskul";
 
 // Pura-pura mengambil data dari database yang agak lambat.
 function jeda(ms: number) {

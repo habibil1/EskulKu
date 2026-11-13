@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ambilEkskul } from "@/Data/ambil";
+import { ambilEkskul } from "@/data/ambil";
 
 type Props = { params: Promise<{ id: string }> };
 

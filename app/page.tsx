@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ekskul } from "@/Data/ekskul";
+import { ekskul } from "@/data/ekskul";
 
 export default function Beranda() {
   return (

@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "EksulKu",
+  title: { default: "EkskulKu", template: "%s • EkskulKu" },
   description: "Pendaftaran EksulKul",
 };
 
