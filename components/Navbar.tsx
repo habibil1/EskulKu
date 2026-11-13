@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const menu = [
   { href: "/", teks: "beranda" },
   { href: "/ekskul", teks: "Ekskul" },
+  { href: "/saya", teks: "Eksku saya" },
 ];
 
 export default function Navbar() {
