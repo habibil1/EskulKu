@@ -6,14 +6,14 @@ import { usePathname } from "next/navigation";
 const menu = [
   { href: "/", teks: "beranda" },
   { href: "/ekskul", teks: "Ekskul" },
-  { href: "/saya", teks: "Eksku saya" },
+  { href: "/saya", teks: "Ekskul saya" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   return (
     <nav className="flex items-center gap-6 border-b bg-white px-6 py-3">
-      <span className="text-lg font-bold text-blue-600">EventKu</span>
+      <span className="text-lg font-bold text-blue-600">Ekskulku</span>
       {menu.map((m) => (
         <Link
           key={m.href}
