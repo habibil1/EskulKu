@@ -29,7 +29,6 @@ export default async function DetailEkskul({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-3xl p-6">
-      {/* Bagian Detail Ekskul */}
       <section className="mb-6 rounded-xl border bg-white p-6">
         <span className="rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
           {ekskul.kategori}
@@ -41,7 +40,6 @@ export default async function DetailEkskul({ params }: Props) {
         <p className="text-slate-600">Pembina: {ekskul.pembina}</p>
       </section>
 
-      {/* Bagian Daftar Anggota dengan Suspense */}
       <section className="mb-6 rounded-xl border bg-white p-6">
         <h2 className="mb-4 text-xl font-bold">Anggota terdaftar</h2>
         <Suspense
@@ -51,7 +49,6 @@ export default async function DetailEkskul({ params }: Props) {
         </Suspense>
       </section>
 
-      {/* Komponen Form Pendaftaran */}
       <FormDaftar
         ekskulId={ekskul.id}
         defaultNama={defaultNama}

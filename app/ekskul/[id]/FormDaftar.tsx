@@ -42,7 +42,6 @@ export default function FormDaftar({
           type="text"
           id="nama"
           name="nama"
-          // Pakai nilai ketikan terakhir, atau ambil dari cookie
           defaultValue={state?.values?.nama ?? defaultNama}
           className="rounded border p-2 focus:border-blue-500 focus:outline-none"
         />
@@ -59,7 +58,6 @@ export default function FormDaftar({
           type="text"
           id="kelas"
           name="kelas"
-          // Pakai nilai ketikan terakhir, atau ambil dari cookie
           defaultValue={state?.values?.kelas ?? defaultKelas}
           placeholder="Contoh: XI RPL 1"
           className="rounded border p-2 focus:border-blue-500 focus:outline-none"

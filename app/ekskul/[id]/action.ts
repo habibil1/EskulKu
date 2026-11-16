@@ -21,7 +21,6 @@ export async function daftarAction(
   const nama = formData.get("nama")?.toString().trim() || "";
   const kelas = formData.get("kelas")?.toString().trim() || "";
 
-  // Poin 10: Isian tidak hilang saat galat
   const state: FormState = {
     values: { nama, kelas },
     errors: {},
@@ -79,17 +78,12 @@ export async function daftarAction(
     }
   }
 
-  // --- POIN 11: BILA BERHASIL ---
-
-  // 1. Simpan ke database memori server
   const nomor = tambahPendaftar({ ekskulId, nama, kelas });
 
-  // 2. Simpan di cookie agar kolom terisi otomatis ke depannya
   const cookieStore = await cookies();
   cookieStore.set("nama", nama);
   cookieStore.set("kelas", kelas);
 
-  // 3. Refresh (revalidate) data di latar belakang agar update tanpa F5
   revalidatePath(`/ekskul/${ekskulId}`);
   revalidatePath("/ekskul");
   revalidatePath("/saya");
