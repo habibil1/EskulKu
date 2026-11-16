@@ -6,6 +6,8 @@ import { ambilEkskul, ambilAnggota } from "@/data/ambil";
 import { JAM_SESI } from "@/data/ekskul";
 import FormDaftar from "./FormDaftar";
 
+export const instant = false;
+
 type Props = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

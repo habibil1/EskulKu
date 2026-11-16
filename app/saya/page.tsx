@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import { ekskul, pendaftar, JAM_SESI } from "@/data/ekskul";
 import { batalkanAction } from "./action";
 
+export const instant = false;
+
 export const metadata: Metadata = {
   title: "Ekskul Saya",
 };

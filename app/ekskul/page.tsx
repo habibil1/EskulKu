@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ambilSemuaEkskul } from "@/data/ambil";
 import {
+  Kategori,
   pendaftar,
   DAFTAR_KATEGORI,
   DAFTAR_HARI,
@@ -17,16 +18,13 @@ export default async function DaftarEkskul({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  // 1. Membaca saringan dari URL
   const sp = await searchParams;
   const kategoriQ = typeof sp.kategori === "string" ? sp.kategori : "";
   const hariQ = typeof sp.hari === "string" ? sp.hari : "";
 
-  // 2. Mengambil semua data ekskul
   let daftar = await ambilSemuaEkskul();
 
-  // 3. Logika Saringan (Filter) Server
-  if (kategoriQ && DAFTAR_KATEGORI.includes(kategoriQ as any)) {
+  if (kategoriQ && DAFTAR_KATEGORI.includes(kategoriQ as Kategori)) {
     daftar = daftar.filter((e) => e.kategori === kategoriQ);
   }
 
@@ -38,7 +36,6 @@ export default async function DaftarEkskul({
     <main className="mx-auto max-w-5xl p-6">
       <h1 className="mb-6 text-3xl font-bold">Daftar Ekskul</h1>
 
-      {/* Formulir murni HTML tanpa onChange */}
       <form method="GET" className="mb-6 flex flex-wrap gap-4">
         <select
           name="kategori"
@@ -66,7 +63,6 @@ export default async function DaftarEkskul({
           ))}
         </select>
 
-        {/* Tombol Filter yang kini dimunculkan secara standar */}
         <button
           type="submit"
           className="rounded bg-slate-800 px-4 py-2 text-white hover:bg-slate-700"

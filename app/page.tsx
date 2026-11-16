@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ekskul } from "@/data/ekskul";
 
 export default function Beranda() {
   return (
@@ -25,4 +24,3 @@ export default function Beranda() {
     </div>
   );
 }
-//commit
