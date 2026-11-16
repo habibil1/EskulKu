@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { Metadata } from "next";
 import { ambilEkskul, ambilAnggota } from "@/data/ambil";
 import { JAM_SESI } from "@/data/ekskul";
+import FormDaftar from "./FormDaftar";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -20,12 +21,15 @@ export default async function DetailEkskul({ params }: Props) {
   const { id } = await params;
   const ekskul = await ambilEkskul(Number(id));
 
-  // Poin 6: Id yang tidak ada menampilkan 404
   if (!ekskul) notFound();
+
+  const cookieStore = await cookies();
+  const defaultNama = cookieStore.get("nama")?.value || "";
+  const defaultKelas = cookieStore.get("kelas")?.value || "";
 
   return (
     <main className="mx-auto max-w-3xl p-6">
-      {/* Bagian Detail Ekskul (Tampil lebih dulu) */}
+      {/* Bagian Detail Ekskul */}
       <section className="mb-6 rounded-xl border bg-white p-6">
         <span className="rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
           {ekskul.kategori}
@@ -38,7 +42,7 @@ export default async function DetailEkskul({ params }: Props) {
       </section>
 
       {/* Bagian Daftar Anggota dengan Suspense */}
-      <section className="rounded-xl border bg-white p-6">
+      <section className="mb-6 rounded-xl border bg-white p-6">
         <h2 className="mb-4 text-xl font-bold">Anggota terdaftar</h2>
         <Suspense
           fallback={<p className="text-slate-500">Memuat anggota...</p>}
@@ -46,11 +50,17 @@ export default async function DetailEkskul({ params }: Props) {
           <DaftarAnggota ekskulId={ekskul.id} kuota={ekskul.kuota} />
         </Suspense>
       </section>
+
+      {/* Komponen Form Pendaftaran */}
+      <FormDaftar
+        ekskulId={ekskul.id}
+        defaultNama={defaultNama}
+        defaultKelas={defaultKelas}
+      />
     </main>
   );
 }
 
-// Memisahkan komponen Anggota agar bisa dibungkus Suspense secara independen
 async function DaftarAnggota({
   ekskulId,
   kuota,
@@ -60,7 +70,6 @@ async function DaftarAnggota({
 }) {
   const anggota = await ambilAnggota(ekskulId);
 
-  // Mengambil nama dari cookie untuk pengecekan label "Kamu"
   const cookieStore = await cookies();
   const namaSiswa = cookieStore.get("nama")?.value;
 

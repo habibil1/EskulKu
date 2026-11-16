@@ -1,6 +1,8 @@
 "use server";
 
-import { ekskul, pendaftar } from "@/data/ekskul";
+import { ekskul, pendaftar, tambahPendaftar, JAM_SESI } from "@/data/ekskul";
+import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
 export type FormState = {
   values?: { nama: string; kelas: string };
@@ -19,6 +21,7 @@ export async function daftarAction(
   const nama = formData.get("nama")?.toString().trim() || "";
   const kelas = formData.get("kelas")?.toString().trim() || "";
 
+  // Poin 10: Isian tidak hilang saat galat
   const state: FormState = {
     values: { nama, kelas },
     errors: {},
@@ -75,7 +78,23 @@ export async function daftarAction(
       return state;
     }
   }
+
+  // --- POIN 11: BILA BERHASIL ---
+
+  // 1. Simpan ke database memori server
+  const nomor = tambahPendaftar({ ekskulId, nama, kelas });
+
+  // 2. Simpan di cookie agar kolom terisi otomatis ke depannya
+  const cookieStore = await cookies();
+  cookieStore.set("nama", nama);
+  cookieStore.set("kelas", kelas);
+
+  // 3. Refresh (revalidate) data di latar belakang agar update tanpa F5
+  revalidatePath(`/ekskul/${ekskulId}`);
+  revalidatePath("/ekskul");
+  revalidatePath("/saya");
+
   state.success = true;
-  state.message = "Berhasil! (Fitur simpan akan dilanjutkan di Langkah 11)";
+  state.message = `Pendaftaran #${nomor} berhasil: ${targetEkskul.nama}, ${targetEkskul.hari}, sesi ${targetEkskul.sesi} (${JAM_SESI[targetEkskul.sesi]}).`;
   return state;
 }
